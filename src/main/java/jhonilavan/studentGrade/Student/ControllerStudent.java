@@ -48,6 +48,7 @@ public class ControllerStudent {
         }
     }
 
+    //Conferir se já existe esta matricula
     public boolean enrollmentExists(String enrollment){
         return repositoryStudent.findByEnrollment(enrollment) != null;
     }
