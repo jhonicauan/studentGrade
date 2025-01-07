@@ -10,27 +10,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jhonilavan.studentGrade.Error.MessageError;
-
 @RestController
 @RequestMapping("/subject")
 public class ControllerSubject {
 
     //Repositorio que ira controlar as matérias
     @Autowired
-    IRepositorySubject repositorySubject;
+    ServiceSubject service;
 
     //Função para criar matérias
     @PostMapping("/add")
     public ResponseEntity addSubject(@RequestBody ModelSubject newSubject){
         try{
-
-            String nameSubject = newSubject.getNameSubject();
-            if(subjectExists(nameSubject)){
-                MessageError.send("Já existe uma materia com este nome.");
-            }
-
-            repositorySubject.save(newSubject);
+            service.addSubject(newSubject);
             return ResponseEntity.accepted().body(newSubject);
         }catch(RuntimeException e){
 
@@ -41,11 +33,7 @@ public class ControllerSubject {
 
     @GetMapping("/viewAll")
     public ResponseEntity viewAll(){
-        List<ModelSubject> subjects = repositorySubject.findAll();
+        List<ModelSubject> subjects = service.viewAll();
         return ResponseEntity.accepted().body(subjects);
-    }
-    //Função para checar se existem matérias com este nome
-    public boolean subjectExists(String nameSubject){
-        return repositorySubject.findByNameSubject(nameSubject) != null;
     }
 }

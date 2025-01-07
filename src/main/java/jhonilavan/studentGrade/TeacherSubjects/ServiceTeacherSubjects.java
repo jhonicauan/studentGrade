@@ -3,7 +3,6 @@ package jhonilavan.studentGrade.TeacherSubjects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jhonilavan.studentGrade.Student.ModelStudent;
 import jhonilavan.studentGrade.Subject.IRepositorySubject;
 import jhonilavan.studentGrade.Subject.ModelSubject;
 import jhonilavan.studentGrade.Teacher.IRepositoryTeacher;

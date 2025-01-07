@@ -7,12 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jhonilavan.studentGrade.Subject.IRepositorySubject;
-import jhonilavan.studentGrade.Subject.ModelSubject;
-import jhonilavan.studentGrade.Teacher.IRepositoryTeacher;
-import jhonilavan.studentGrade.Teacher.ModelTeacher;
-import lombok.val;
-
 @RestController
 @RequestMapping("/lecture")
 public class ControllerTeacherSubjects {
