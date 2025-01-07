@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import jhonilavan.studentGrade.Error.MessageError;
+import jhonilavan.studentGrade.Error.DuplicateValueError;
+import jhonilavan.studentGrade.Error.InvalidPasswordError;
 
 @Service
 public class ServiceTeacher {
@@ -15,12 +16,12 @@ public class ServiceTeacher {
         String username = newTeacher.getUsername();
 
         if(usernameExists(username)){
-            MessageError.send("Este usuario não esta disponível.");
+           throw new DuplicateValueError("Este nome de usuario já tem dono.");
         }
 
         String password = newTeacher.getPassword();
         if(password.length() < 8){
-            MessageError.send("Senhas devem ter no minímo 8 digitos.");
+            throw new InvalidPasswordError("Senhas devem ter no minímo 8 digitos");
         }
 
         String cryptPassword = BCrypt.withDefaults().hashToString(12,password.toCharArray());

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jhonilavan.studentGrade.Error.MessageError;
+import jhonilavan.studentGrade.Error.DuplicateValueError;
 
 @Service
 public class ServiceSubject {
@@ -16,7 +16,7 @@ public class ServiceSubject {
     public ModelSubject addSubject(ModelSubject newSubject){
         String nameSubject = newSubject.getNameSubject();
         if(subjectExists(nameSubject)){
-            MessageError.send("Já existe uma materia com este nome.");
+            throw new DuplicateValueError("Já existe uma materia com este nome.");
         }
 
         repositorySubject.save(newSubject);

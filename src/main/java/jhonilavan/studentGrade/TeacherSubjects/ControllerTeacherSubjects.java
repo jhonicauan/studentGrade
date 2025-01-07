@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jhonilavan.studentGrade.Error.UnmatchIdError;
+
 @RestController
 @RequestMapping("/lecture")
 public class ControllerTeacherSubjects {
@@ -24,7 +26,7 @@ public class ControllerTeacherSubjects {
             TeacherSubjectsId ids = newLecture.getIdTeacherSubjects();
             boolean validIds = service.idsAreValid(ids.getIdSubject(), ids.getIdTeacher());
             if(!validIds){
-                throw new RuntimeException("Houve um problema e não foi possível encontrar este professor ou matéria.");
+                throw new UnmatchIdError("Não foi possivel encontrar o professor ou materia.");
             }
             newLecture = service.finishAdd(newLecture);
             return ResponseEntity.accepted().body(newLecture);
