@@ -23,10 +23,7 @@ public class ServiceTeacherSubjects {
     public  boolean idsAreValid(Long idSubject,Long idTeacher){
         ModelTeacher teacher =  repositoryTeacher.findByIdTeacher(idTeacher);
         ModelSubject subject = repositorySubject.findByIdSubject(idSubject);
-        if(teacher != null && subject != null){
-            return true;
-        }
-        return false;
+        return teacher != null && subject != null;
     }
 
     public ModelTeacherSubjects finishAdd(ModelTeacherSubjects newLecture){
