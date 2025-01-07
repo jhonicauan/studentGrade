@@ -1,5 +1,8 @@
 package jhonilavan.studentGrade.TeacherSubjects;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
@@ -7,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToMany;
+import jhonilavan.studentGrade.SchoolTest.ModelSchoolTest;
 import jhonilavan.studentGrade.Subject.ModelSubject;
 import jhonilavan.studentGrade.Teacher.ModelTeacher;
 import lombok.Data;
@@ -28,4 +33,8 @@ public class ModelTeacherSubjects {
     @JoinColumn(name = "id_teacher")
     @JsonIgnore
     private ModelTeacher teacher;
+
+    @OneToMany(mappedBy = "teacherSubjects")
+    @JsonBackReference
+    private List<ModelSchoolTest> schoolTests;
 }

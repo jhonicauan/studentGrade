@@ -9,4 +9,6 @@ public interface IRepositoryTeacherSubjects extends JpaRepository<ModelTeacherSu
     
     @Query("SELECT ts.teacher.nameTeacher AS nameTeacher,ts.subject.nameSubject AS nameSubject from teacher_subjects ts where ts.teacher.idTeacher = ?1")
     public List<TeacherSubjectsDetailsDTO> findLecturesByTeacher(Long idTeacher);
+
+    ModelTeacherSubjects findByIdTeacherSubjects(TeacherSubjectsId idTeacherSubjects);
 }
