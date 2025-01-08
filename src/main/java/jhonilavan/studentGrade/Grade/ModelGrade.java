@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -15,6 +16,7 @@ import lombok.Data;
 
 @Entity(name = "grade")
 @Data
+@Schema(description = "Modelo para cadastrar notas em avaliações")
 public class ModelGrade {
     @EmbeddedId
     private GradeId idGrade;

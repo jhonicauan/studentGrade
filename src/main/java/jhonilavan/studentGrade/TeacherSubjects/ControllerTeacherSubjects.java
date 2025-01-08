@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jhonilavan.studentGrade.Error.UnmatchIdError;
 
 @RestController
@@ -21,6 +22,7 @@ public class ControllerTeacherSubjects {
     ServiceTeacherSubjects service;
 
     @PostMapping("/add")
+     @Operation(summary = "Definir quais matérias o professor leciona",description = "Adiciona um relacionamento entre professor e matéria")
     public ResponseEntity addLecture(@RequestBody TeacherSubjectsDTO teacherSubjectsDTO){
         try{
             ModelTeacherSubjects newLecture = service.finishAdd(teacherSubjectsDTO);
@@ -31,6 +33,7 @@ public class ControllerTeacherSubjects {
         }
     }
 
+    @Operation(summary = "Ver as matérias do professor",description = "Checa todas as matérias de um professor pelo seu id")
     @GetMapping("/viewLectures/{idTeacher}")
     public ResponseEntity viewLectures(@PathVariable("idTeacher") Long idTeacher){
         try

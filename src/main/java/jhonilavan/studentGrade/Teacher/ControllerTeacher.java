@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 @RestController
 @RequestMapping("/teacher")
 public class ControllerTeacher {
@@ -15,6 +18,8 @@ public class ControllerTeacher {
     private ServiceTeacher service;
 
     //Função para adicionar professores
+    @Operation(summary = "Adicionar professor",description = "Faz com que um professor seja registrado no banco de dados")
+    @ApiResponse(description = "Retorna o novo objeto de Professor criado")
     @PostMapping("/add")
     public ResponseEntity addStudent(@RequestBody TeacherDTO teacherDTO){
         try{

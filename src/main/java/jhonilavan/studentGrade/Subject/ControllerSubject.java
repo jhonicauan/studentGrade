@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/subject")
 public class ControllerSubject {
@@ -20,6 +22,7 @@ public class ControllerSubject {
 
     //Função para criar matérias
     @PostMapping("/add")
+     @Operation(summary = "Adicionar matéria",description = "Faz com que uma matéria seja registrado no banco de dados")
     public ResponseEntity addSubject(@RequestBody SubjectDTO subjectDTO){
         try{
             ModelSubject newSubject = service.addSubject(subjectDTO);
@@ -30,7 +33,7 @@ public class ControllerSubject {
             return ResponseEntity.badRequest().body(messageError);
         }
     }
-
+    @Operation(summary = "Mostrar matérias",description = "Mostra todas as matérias cadastradas no banco")
     @GetMapping("/viewAll")
     public ResponseEntity viewAll(){
         List<ModelSubject> subjects = service.viewAll();

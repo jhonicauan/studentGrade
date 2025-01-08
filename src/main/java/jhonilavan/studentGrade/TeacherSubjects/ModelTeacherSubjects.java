@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -18,6 +19,7 @@ import lombok.Data;
 
 @Entity(name = "teacher_subjects")
 @Data
+@Schema(description = "Modelo de entidade para definir o relacionamento de matérias e o professor")
 public class ModelTeacherSubjects {
     @EmbeddedId
     private TeacherSubjectsId idTeacherSubjects;

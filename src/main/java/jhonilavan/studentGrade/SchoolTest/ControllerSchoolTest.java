@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/schooltest")
 public class ControllerSchoolTest {
@@ -15,9 +17,10 @@ public class ControllerSchoolTest {
     ServiceSchoolTest service;
 
     @PostMapping("/add")
-    public ResponseEntity addSchoolTest(@RequestBody ModelSchoolTest newTest){
+      @Operation(summary = "Adicionar provas",description = "Faz com que provas seja registrado no banco de dados")
+    public ResponseEntity addSchoolTest(@RequestBody SchoolTestDTO schoolTestDTO){
         try{
-            newTest = service.addTest(newTest);
+            ModelSchoolTest newTest = service.addTest(schoolTestDTO);
             return ResponseEntity.accepted().body(newTest);
         }catch(RuntimeException e){
             String errorMessage = e.getLocalizedMessage();

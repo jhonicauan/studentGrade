@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +16,7 @@ import lombok.Data;
 
 @Entity(name = "student")
 @Data
+@Schema(description = "Modelo de entidade para criar alunos")
 public class ModelStudent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

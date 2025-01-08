@@ -26,16 +26,15 @@ public class ServiceSchoolTest {
         return teacherSubjects != null;
     }
 
-    public ModelSchoolTest addTest(ModelSchoolTest newTest){
-        ModelTeacherSubjects teacherSubjects = newTest.getTeacherSubjects();
-        TeacherSubjectsId teacherSubjectsId = teacherSubjects.getIdTeacherSubjects();
+    public ModelSchoolTest addTest(SchoolTestDTO schoolTestDTO){
+        TeacherSubjectsId teacherSubjectsId = schoolTestDTO.getTeacherSubjectsId();
         Long idTeacher = teacherSubjectsId.getIdTeacher();
         Long idSubject = teacherSubjectsId.getIdSubject();
         boolean check = checkTeacherSubjects(idTeacher, idSubject);
         if(!check){
             throw new UnmatchIdError("Não foram encontrados este professor e materia nos dados.");
         }
-        double weight = newTest.getWeight();
+        double weight = schoolTestDTO.getWeight();
         if(weight <= 0){
             throw new InvalidWeightError("O peso de uma avaliação deve ser maior que 0");
         }
@@ -44,7 +43,12 @@ public class ServiceSchoolTest {
         if(weight > 10){
             throw new InvalidWeightError("O peso de uma avaliação deve ser no maximo 10");
         }
-        repositorySchoolTest.save(newTest);
-        return newTest;
+        ModelTeacherSubjects teacherSubjects = repositoryTeacherSubjects.findByIdTeacherSubjects(teacherSubjectsId);
+        ModelSchoolTest newTest = new ModelSchoolTest();
+        newTest.setTeacherSubjects(teacherSubjects);
+        newTest.setTestDescription(schoolTestDTO.getTestDescription());
+        newTest.setTitle(schoolTestDTO.getTitle());
+        newTest.setWeight(weight);
+        return repositorySchoolTest.save(newTest);
     }
 }

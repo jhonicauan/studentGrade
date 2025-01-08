@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +23,7 @@ import lombok.Data;
 
 @Entity(name = "schooltest")
 @Data
+@Schema(description = "Modelo de entidade para criar provas")
 public class ModelSchoolTest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -36,12 +36,12 @@ public class ServiceGrade {
         }
     }
 
-    public ModelGrade addGrade(ModelGrade newGrade){
-        Long idStudent = newGrade.getIdGrade().getIdStudent();
-        Long idSchoolTest = newGrade.getIdGrade().getIdSchoolTest();
+    public ModelGrade addGrade(GradeDTO gradeDTO){
+        Long idStudent = gradeDTO.getIdGrade().getIdStudent();
+        Long idSchoolTest = gradeDTO.getIdGrade().getIdSchoolTest();
         checkSchoolTest(idSchoolTest);
         checkStudent(idStudent);
-        double weight = newGrade.getWeight();
+        double weight = gradeDTO.getWeight();
         if(weight <=0 || weight > 10){
             throw new InvalidWeightError("O peso deve ser acima de 0 e no maxímo 10");
         }
@@ -49,6 +49,10 @@ public class ServiceGrade {
         ModelStudent student = repositoryStudent.findByIdStudent(idStudent);
         ModelSchoolTest schoolTest = repositorySchoolTest.findByIdSchoolTest(idSchoolTest);
 
+        ModelGrade newGrade = new ModelGrade();
+
+        newGrade.setIdGrade(gradeDTO.getIdGrade());
+        newGrade.setWeight(weight);
         newGrade.setSchoolTest(schoolTest);
         newGrade.setStudent(student);
 
