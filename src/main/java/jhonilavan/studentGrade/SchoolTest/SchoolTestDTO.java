@@ -13,5 +13,7 @@ public class SchoolTestDTO {
 
     private double weight;
 
+    private String password;
+    
     private TeacherSubjectsId teacherSubjectsId;
 }

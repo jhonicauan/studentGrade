@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import jhonilavan.studentGrade.Error.InvalidPasswordError;
 import jhonilavan.studentGrade.Error.InvalidWeightError;
 import jhonilavan.studentGrade.Error.UnmatchIdError;
 import jhonilavan.studentGrade.SchoolTest.IRepositorySchoolTest;
@@ -39,6 +41,10 @@ public class ServiceGrade {
     public ModelGrade addGrade(GradeDTO gradeDTO){
         Long idStudent = gradeDTO.getIdGrade().getIdStudent();
         Long idSchoolTest = gradeDTO.getIdGrade().getIdSchoolTest();
+        GradeId gradeId = gradeDTO.getIdGrade();
+        String password = gradeDTO.getPassword();
+        checkAvaliable(gradeId);
+        checkPassword(idStudent, password);
         checkSchoolTest(idSchoolTest);
         checkStudent(idStudent);
         double weight = gradeDTO.getWeight();
@@ -48,7 +54,6 @@ public class ServiceGrade {
 
         ModelStudent student = repositoryStudent.findByIdStudent(idStudent);
         ModelSchoolTest schoolTest = repositorySchoolTest.findByIdSchoolTest(idSchoolTest);
-
         ModelGrade newGrade = new ModelGrade();
 
         newGrade.setIdGrade(gradeDTO.getIdGrade());
@@ -61,5 +66,21 @@ public class ServiceGrade {
 
     public List<BulletinDTO> getBulletin(Long idStudent){
         return repositoryGrade.bulletin(idStudent);
+    }
+
+    public void checkPassword(Long idStudent,String password){
+        ModelStudent student = repositoryStudent.findByIdStudent(idStudent);
+        String studentPassword = student.getPassword();
+        boolean check = BCrypt.verifyer().verify(password.toCharArray(),studentPassword.toCharArray()).verified;
+        if(!check){
+            throw new InvalidPasswordError("Não foi possivel autenticar o aluno");
+        }
+    }
+
+    public void checkAvaliable(GradeId gradeId){
+        ModelGrade grade = repositoryGrade.findById(gradeId).get();
+        if(grade != null){
+            throw new UnmatchIdError("Este aluno já fez essa prova");
+        }
     }
 }

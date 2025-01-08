@@ -9,4 +9,6 @@ public class GradeDTO {
     private GradeId idGrade;
 
     private double weight;
+
+    private String password;
 }
