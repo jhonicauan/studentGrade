@@ -1,9 +1,15 @@
 package jhonilavan.studentGrade.Student;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jhonilavan.studentGrade.Grade.ModelGrade;
 import lombok.Data;
 
 @Entity(name = "student")
@@ -18,4 +24,8 @@ public class ModelStudent {
     private String nameStudent;
 
     private String password;
+
+    @OneToMany(mappedBy = "student")
+    @JsonBackReference
+    List<ModelGrade> grades;
 }
