@@ -13,15 +13,17 @@ public class ServiceSubject {
     @Autowired
     private IRepositorySubject repositorySubject;
 
-    public ModelSubject addSubject(ModelSubject newSubject){
-        String nameSubject = newSubject.getNameSubject();
+    public ModelSubject addSubject(SubjectDTO subjectDTO){
+        String nameSubject = subjectDTO.getNameSubject();
         if(subjectExists(nameSubject)){
             throw new DuplicateValueError("Já existe uma materia com este nome.");
         }
+        ModelSubject newSubject = new ModelSubject();
+        
+        newSubject.setDescriptionSubject(subjectDTO.getDescriptionSubject());
+        newSubject.setNameSubject(nameSubject);
 
-        repositorySubject.save(newSubject);
-
-        return newSubject;
+        return repositorySubject.save(newSubject);
     }
 
     public List<ModelSubject> viewAll(){

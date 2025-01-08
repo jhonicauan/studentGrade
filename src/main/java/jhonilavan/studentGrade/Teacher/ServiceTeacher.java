@@ -31,9 +31,7 @@ public class ServiceTeacher {
         newTeacher.setPassword(cryptPassword);
         newTeacher.setUsername(username);
 
-        repositoryTeacher.save(newTeacher);
-
-        return newTeacher;
+        return repositoryTeacher.save(newTeacher);
     }
 
     //Conferir se já existe este usuario

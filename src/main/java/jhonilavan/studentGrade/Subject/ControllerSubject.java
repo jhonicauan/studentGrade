@@ -20,9 +20,9 @@ public class ControllerSubject {
 
     //Função para criar matérias
     @PostMapping("/add")
-    public ResponseEntity addSubject(@RequestBody ModelSubject newSubject){
+    public ResponseEntity addSubject(@RequestBody SubjectDTO subjectDTO){
         try{
-            service.addSubject(newSubject);
+            ModelSubject newSubject = service.addSubject(subjectDTO);
             return ResponseEntity.accepted().body(newSubject);
         }catch(RuntimeException e){
 

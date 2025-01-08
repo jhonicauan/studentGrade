@@ -24,8 +24,8 @@ public class ServiceTeacherSubjects {
     private IRepositoryTeacherSubjects repositoryTeacherSubjects;
 
     
-    public ModelTeacherSubjects finishAdd(ModelTeacherSubjects newLecture){
-        TeacherSubjectsId ids = newLecture.getIdTeacherSubjects();
+    public ModelTeacherSubjects finishAdd(TeacherSubjectsDTO teacherSubjectsDTO){
+        TeacherSubjectsId ids = teacherSubjectsDTO.getIdTeacherSubjects();
         Long idTeacher = ids.getIdTeacher();
         Long idSubject = ids.getIdSubject();
         boolean validIds = idsAreValid(idSubject, idTeacher);
@@ -34,10 +34,13 @@ public class ServiceTeacherSubjects {
         }
         ModelTeacher teacher =  repositoryTeacher.findByIdTeacher(idTeacher);
         ModelSubject subject = repositorySubject.findByIdSubject(idSubject);
+
+        ModelTeacherSubjects newLecture = new ModelTeacherSubjects();
+
+        newLecture.setIdTeacherSubjects(ids);
         newLecture.setSubject(subject);
         newLecture.setTeacher(teacher);
-        repositoryTeacherSubjects.save(newLecture);
-        return newLecture;
+        return repositoryTeacherSubjects.save(newLecture);
     }
     
     public List<TeacherSubjectsDetailsDTO> getTeacherLectures(Long idTeacher){

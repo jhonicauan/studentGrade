@@ -32,9 +32,7 @@ public class ServiceStudent {
             newStudent.setNameStudent(studentDTO.getNameStudent());
             newStudent.setPassword(cryptPassword);
 
-            repositoryStudent.save(newStudent);
-
-            return newStudent;
+            return repositoryStudent.save(newStudent);
     }
 
       //Conferir se já existe esta matricula

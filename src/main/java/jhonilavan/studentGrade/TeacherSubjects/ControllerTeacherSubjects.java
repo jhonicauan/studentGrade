@@ -21,9 +21,9 @@ public class ControllerTeacherSubjects {
     ServiceTeacherSubjects service;
 
     @PostMapping("/add")
-    public ResponseEntity addLecture(@RequestBody ModelTeacherSubjects newLecture){
+    public ResponseEntity addLecture(@RequestBody TeacherSubjectsDTO teacherSubjectsDTO){
         try{
-            newLecture = service.finishAdd(newLecture);
+            ModelTeacherSubjects newLecture = service.finishAdd(teacherSubjectsDTO);
             return ResponseEntity.accepted().body(newLecture);
         }catch(RuntimeException e){
             String messageError = e.getLocalizedMessage();
