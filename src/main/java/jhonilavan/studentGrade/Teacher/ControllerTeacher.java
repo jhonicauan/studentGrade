@@ -16,9 +16,9 @@ public class ControllerTeacher {
 
     //Função para adicionar professores
     @PostMapping("/add")
-    public ResponseEntity addStudent(@RequestBody ModelTeacher newTeacher){
+    public ResponseEntity addStudent(@RequestBody TeacherDTO teacherDTO){
         try{
-            service.addTeacher(newTeacher);
+            ModelTeacher newTeacher = service.addTeacher(teacherDTO);
             return ResponseEntity.accepted().body(newTeacher);
 
         }catch(RuntimeException e){

@@ -17,9 +17,9 @@ public class ControllerStudent {
 
     //Função para adicionar estudantes
     @PostMapping("/add")
-    public ResponseEntity addStudent(@RequestBody ModelStudent newStudent){
+    public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO){
         try{
-            newStudent = service.addStudent(newStudent);
+            ModelStudent newStudent = service.addStudent(studentDTO);
             return ResponseEntity.accepted().body(newStudent);
         }catch(RuntimeException e){
 

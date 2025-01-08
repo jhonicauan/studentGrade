@@ -12,19 +12,24 @@ public class ServiceStudent {
     @Autowired
     private IRepositoryStudent repositoryStudent;
 
-    public ModelStudent addStudent(ModelStudent newStudent){
-         String enrollment = newStudent.getEnrollment();
+    public ModelStudent addStudent(StudentDTO studentDTO){
+         String enrollment = studentDTO.getEnrollment();
 
             if(enrollmentExists(enrollment)){
                 throw new DuplicateValueError("Matricula já esta em uso");
             }
 
-            String password = newStudent.getPassword();
+            String password = studentDTO.getPassword();
             if(password.length() < 8){
                 throw new InvalidPasswordError("Senhas devem ter no minimo 8 digitos.");
             }
 
             String cryptPassword = BCrypt.withDefaults().hashToString(12,password.toCharArray());
+            
+            ModelStudent newStudent = new ModelStudent();
+
+            newStudent.setEnrollment(enrollment);
+            newStudent.setNameStudent(studentDTO.getNameStudent());
             newStudent.setPassword(cryptPassword);
 
             repositoryStudent.save(newStudent);

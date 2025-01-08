@@ -3,6 +3,7 @@ package jhonilavan.studentGrade.Student;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ public class ModelStudent {
 
     private String nameStudent;
 
+    @JsonIgnore
     private String password;
 
     @OneToMany(mappedBy = "student")

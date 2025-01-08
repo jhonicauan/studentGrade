@@ -12,20 +12,24 @@ public class ServiceTeacher {
     @Autowired
     private IRepositoryTeacher repositoryTeacher;
 
-    public ModelTeacher addTeacher(ModelTeacher newTeacher){
-        String username = newTeacher.getUsername();
+    public ModelTeacher addTeacher(TeacherDTO teacherDTO){
+        String username = teacherDTO.getUsername();
 
         if(usernameExists(username)){
            throw new DuplicateValueError("Este nome de usuario já tem dono.");
         }
 
-        String password = newTeacher.getPassword();
+        String password = teacherDTO.getPassword();
         if(password.length() < 8){
             throw new InvalidPasswordError("Senhas devem ter no minímo 8 digitos");
         }
 
         String cryptPassword = BCrypt.withDefaults().hashToString(12,password.toCharArray());
+
+        ModelTeacher newTeacher = new ModelTeacher();
+        newTeacher.setNameTeacher(teacherDTO.getNameTeacher());
         newTeacher.setPassword(cryptPassword);
+        newTeacher.setUsername(username);
 
         repositoryTeacher.save(newTeacher);
 
